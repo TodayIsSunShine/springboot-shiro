@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiangzi.dao.SysUserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.xiangzi.model.SysUserRole">
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="uid" jdbcType="INTEGER" property="uid"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.xiangzi.model.SysUserRole">
+    insert into sys_user_role (role_id, uid)
+    values (#{roleId,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xiangzi.model.SysUserRole">
+        insert into sys_user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="bulkInsert" parameterType="com.xiangzi.model.SysUserRole">
+        insert into sys_user_role (role_id,uid)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.roleId},
+            #{item.uid}
+            )
+        </foreach>
+    </insert>
+</mapper>
