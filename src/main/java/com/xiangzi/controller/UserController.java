@@ -1,5 +1,6 @@
 package com.xiangzi.controller;
 
+import com.xiangzi.annotation.SysLog;
 import com.xiangzi.controller.base.BaseController;
 import com.xiangzi.model.UserInfo;
 import com.xiangzi.response.CommonReturnType;
@@ -22,6 +23,7 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
+    @SysLog("保存用户")
     @PostMapping("/add")
     @RequiresPermissions("userInfo:add")
     public CommonReturnType userAdd(@RequestBody UserInfo userInfo) {

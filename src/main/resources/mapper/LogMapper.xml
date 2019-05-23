@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiangzi.dao.LogMapper">
+    <resultMap id="BaseResultMap" type="com.xiangzi.model.Log">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="remote_addr" jdbcType="VARCHAR" property="remoteAddr"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="request_uri" jdbcType="VARCHAR" property="requestUri"/>
+        <result column="http_method" jdbcType="VARCHAR" property="httpMethod"/>
+        <result column="class_method" jdbcType="VARCHAR" property="classMethod"/>
+        <result column="session_id" jdbcType="VARCHAR" property="sessionId"/>
+        <result column="use_time" jdbcType="BIGINT" property="useTime"/>
+        <result column="browser" jdbcType="VARCHAR" property="browser"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="isp" jdbcType="VARCHAR" property="isp"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="del_flag" jdbcType="BIT" property="delFlag"/>
+        <result column="params" jdbcType="LONGVARCHAR" property="params"/>
+        <result column="response" jdbcType="LONGVARCHAR" property="response"/>
+        <result column="exception" jdbcType="LONGVARCHAR" property="exception"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, type, title, remote_addr, username, request_uri, http_method, class_method, session_id, 
+    use_time, browser, area, province, city, isp, create_by, create_date, update_by, 
+    update_date, remarks, del_flag,params,response,`exception`
+  </sql>
+    <sql id="Blob_Column_List">
+    params, response, exception
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from sys_log
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.xiangzi.model.Log">
+    insert into sys_log (id, type, title, 
+      remote_addr, username, request_uri, 
+      http_method, class_method, session_id, 
+      use_time, browser, area, 
+      province, city, isp, 
+      create_by, create_date, update_by, 
+      update_date, remarks, del_flag, 
+      params, response, exception
+      )
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{remoteAddr,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{requestUri,jdbcType=VARCHAR}, 
+      #{httpMethod,jdbcType=VARCHAR}, #{classMethod,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, 
+      #{useTime,jdbcType=BIGINT}, #{browser,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{isp,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=BIGINT}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=BIT}, 
+      #{params,jdbcType=LONGVARCHAR}, #{response,jdbcType=LONGVARCHAR}, #{exception,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.xiangzi.model.Log">
+        insert into sys_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="remoteAddr != null">
+                remote_addr,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="requestUri != null">
+                request_uri,
+            </if>
+            <if test="httpMethod != null">
+                http_method,
+            </if>
+            <if test="classMethod != null">
+                class_method,
+            </if>
+            <if test="sessionId != null">
+                session_id,
+            </if>
+            <if test="useTime != null">
+                use_time,
+            </if>
+            <if test="browser != null">
+                browser,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="isp != null">
+                isp,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+            <if test="params != null">
+                params,
+            </if>
+            <if test="response != null">
+                response,
+            </if>
+            <if test="exception != null">
+                `exception`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="remoteAddr != null">
+                #{remoteAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="requestUri != null">
+                #{requestUri,jdbcType=VARCHAR},
+            </if>
+            <if test="httpMethod != null">
+                #{httpMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="classMethod != null">
+                #{classMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="sessionId != null">
+                #{sessionId,jdbcType=VARCHAR},
+            </if>
+            <if test="useTime != null">
+                #{useTime,jdbcType=BIGINT},
+            </if>
+            <if test="browser != null">
+                #{browser,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="isp != null">
+                #{isp,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag,jdbcType=BIT},
+            </if>
+            <if test="params != null">
+                #{params,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="response != null">
+                #{response,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="exception != null">
+                #{exception,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiangzi.model.Log">
+        update sys_log
+        <set>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="remoteAddr != null">
+                remote_addr = #{remoteAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="requestUri != null">
+                request_uri = #{requestUri,jdbcType=VARCHAR},
+            </if>
+            <if test="httpMethod != null">
+                http_method = #{httpMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="classMethod != null">
+                class_method = #{classMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="sessionId != null">
+                session_id = #{sessionId,jdbcType=VARCHAR},
+            </if>
+            <if test="useTime != null">
+                use_time = #{useTime,jdbcType=BIGINT},
+            </if>
+            <if test="browser != null">
+                browser = #{browser,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="isp != null">
+                isp = #{isp,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag,jdbcType=BIT},
+            </if>
+            <if test="params != null">
+                params = #{params,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="response != null">
+                response = #{response,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="exception != null">
+                exception = #{exception,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xiangzi.model.Log">
+    update sys_log
+    set type = #{type,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      remote_addr = #{remoteAddr,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      request_uri = #{requestUri,jdbcType=VARCHAR},
+      http_method = #{httpMethod,jdbcType=VARCHAR},
+      class_method = #{classMethod,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      use_time = #{useTime,jdbcType=BIGINT},
+      browser = #{browser,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      isp = #{isp,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=BIT},
+      params = #{params,jdbcType=LONGVARCHAR},
+      response = #{response,jdbcType=LONGVARCHAR},
+      exception = #{exception,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.xiangzi.model.Log">
+    update sys_log
+    set type = #{type,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      remote_addr = #{remoteAddr,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      request_uri = #{requestUri,jdbcType=VARCHAR},
+      http_method = #{httpMethod,jdbcType=VARCHAR},
+      class_method = #{classMethod,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      use_time = #{useTime,jdbcType=BIGINT},
+      browser = #{browser,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      isp = #{isp,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

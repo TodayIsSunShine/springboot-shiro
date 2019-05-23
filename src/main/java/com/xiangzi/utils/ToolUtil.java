@@ -1,7 +1,9 @@
 package com.xiangzi.utils;
 
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
+import com.xiaoleilu.hutool.http.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -187,5 +189,48 @@ public class ToolUtil {
         map.put("os", os);
         map.put("browser", browser);
         return map;
+    }
+
+    /***
+     * @param ip
+     * @return
+     */
+    public static Map<String, String> getAddressByIP(String ip) {
+        String area = "";
+        String province = "";
+        String city = "";
+        String isp = "";
+        Map finalMap = Maps.newHashMap();
+        try {
+            if ("0:0:0:0:0:0:0:1".equals(ip)) {
+                ip = "0.0.0.0";
+            }
+            StringBuilder sb = new StringBuilder("http://whois.pconline.com.cn/ipJson.jsp?json=true&ip=");
+            sb.append(ip);
+            String result = HttpUtil.get(sb.toString(), "GBK");
+            Map resultMap = JSON.parseObject(result, Map.class);
+            String status = (String) resultMap.get("err");
+
+            province = (String) resultMap.get("pro");
+            city = (String) resultMap.get("city");
+            if ("noprovince".equalsIgnoreCase(status)) {
+                area = (String) resultMap.get("addr");
+            } else {
+                area = "中国";
+                String addr = (String) resultMap.get("addr");
+                if (StringUtils.isNotBlank(addr)) {
+                    isp = addr.split(" ")[1];
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        finalMap.put("area", area);
+        finalMap.put("province", province);
+        finalMap.put("city", city);
+        finalMap.put("isp", isp);
+        return finalMap;
     }
 }

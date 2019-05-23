@@ -44,6 +44,10 @@ public class ShiroUtils {
         return getUserEntity().getUid();
     }
 
+    public static String getUsername() {
+        return getUserEntity().getUsername();
+    }
+
     public static void setSessionAttribute(Object key, Object value) {
         getSession().setAttribute(key, value);
     }
