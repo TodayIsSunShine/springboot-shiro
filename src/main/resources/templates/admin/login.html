@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="${request.contextPath}/favicon.ico">
+    <link href="${request.contextPath}/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${request.contextPath}/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <link href="${request.contextPath}/css/animate.css" rel="stylesheet">
+    <link href="${request.contextPath}/css/style.css?v=4.1.0" rel="stylesheet">
+
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+    <script>if (window.top !== window.self) {
+        window.top.location = window.location;
+    }</script>
+    <style>
+        .form-control:focus,
+        .single-line:focus {
+            border-color: #0e9aef !important;
+        }
+
+        .middle-box {
+            padding-top: 60px;
+            margin: 8% auto;
+        }
+
+        .loginscreen.middle-box {
+            width: 360px;
+        }
+
+        .box {
+            background: #fff;
+            padding: 20px;
+        }
+    </style>
+
+</head>
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="box">
+
+        <form class="m-t" role="form" action="/loginIn" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="用户名" id="username" name="username">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="密码" id="password" name="password">
+            </div>
+            <div class="form-group">
+                <input type="checkbox" checked="checked" name="rememberMe"/>记住我
+            </div>
+            <br>
+            <input type="submit" value="登录" style="margin-left: 100px">
+
+        </form>
+    </div>
+
+</div>
+
+</div>
+
+<script src="${request.contextPath}/js/jquery.min.js?v=2.1.4"></script>
+<script src="${request.contextPath}/js/bootstrap.min.js?v=3.3.6"></script>
+
+</body>
+</html>

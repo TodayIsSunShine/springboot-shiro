@@ -17,5 +17,6 @@ public class UserInfo {
     private Integer createdBy;
     private Integer modifyBy;
     private List<SysUserRole> userRoleList;
+    private String validateCode;
 
 }

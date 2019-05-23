@@ -14,6 +14,7 @@ import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
@@ -29,7 +30,7 @@ import java.io.IOException;
  * Date:2019/5/20
  * Time:16:04
  */
-@RestController
+@Controller
 public class LoginController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
@@ -57,6 +58,7 @@ public class LoginController extends BaseController {
 
 
     @PostMapping("/login")
+    @ResponseBody
     public CommonReturnType login(HttpServletRequest request, @RequestBody UserInfo userInfo) {
         if (StringUtils.isBlank(userInfo.getUsername()) || StringUtils.isBlank(userInfo.getPassword())) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "用户名或密码不能为空");
@@ -66,12 +68,12 @@ public class LoginController extends BaseController {
         System.out.println("exception-->" + exception);
         //从session中取出验证码
         String verifyCode = (String) ShiroUtils.getSession().getAttribute(Constants.VALIDATE_CODE);
-    /*    if (StringUtils.isBlank(verifyCode)) {
+        if (StringUtils.isBlank(verifyCode)) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "验证码超时");
         }
         if (StringUtils.isBlank(userInfo.getValidateCode()) || !userInfo.getValidateCode().equalsIgnoreCase(verifyCode)) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "验证码输入错误");
-        }*/
+        }
         String error = null;
         try {
             Subject subject = ShiroUtils.getSubject();
@@ -96,6 +98,7 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping("/logout")
+    @ResponseBody
     public CommonReturnType logout() {
         ShiroUtils.logout();
         return CommonReturnType.create(null);

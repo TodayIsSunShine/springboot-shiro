@@ -6,9 +6,7 @@ import com.xiangzi.response.CommonReturnType;
 import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,11 +17,12 @@ import java.util.Map;
  * Date:2019/5/20
  * Time:14:40
  */
-@RestControllerAdvice
+@ControllerAdvice
 public class BaseController {
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public Object handlerException(RuntimeException ex) {
         Map<String, Object> responseData = new HashMap<>();
         if (ex instanceof BusinessException) {
@@ -41,6 +40,7 @@ public class BaseController {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public Object handlerException() {
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("errCode", EmBusinessError.USER_NOT_LOGIN.getErrCode());
@@ -50,6 +50,7 @@ public class BaseController {
 
     @ExceptionHandler(AuthorizationException.class)
     @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public Object handlerException(AuthorizationException ex) {
         System.out.println(ex.getMessage());
         Map<String, Object> responseData = new HashMap<>();
