@@ -8,7 +8,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://119.23.24.1:3306/qianjiu?useUnicode=true&characterEncoding=utf8&useSSL=true
+    url: jdbc:mysql://localhost:3306/qianjiu?useUnicode=true&characterEncoding=utf8&useSSL=true
     type: com.alibaba.druid.pool.DruidDataSource
   jpa:
     database: mysql
