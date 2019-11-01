@@ -138,7 +138,6 @@ public class ShiroConfig {
         return authorizationAttributeSourceAdvisor;
     }
 
-
     /**
      * AOP式方法级权限检查
      *
